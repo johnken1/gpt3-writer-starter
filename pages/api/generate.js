@@ -7,7 +7,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const basePromptPrefix = `
-This is a conversation with Steve Jobs, the co-founder, chairman, and CEO of Apple
+This is a conversation with Elon Musk,the CEO and co-founder of SpaceX, Tesla, Neuralink and The Boring Company.
 Title:
 `;
 
@@ -25,7 +25,7 @@ const generateAction = async (req, res) => {
 
 	// I build Prompt #2.
 	const secondPrompt = `
- Take the table of contents and title of the blog post below and generate a blog post written in the style of Steve Jobs. Make it feel like a story. Don't just list the points. Go deep into each one. Explain why.
+ Take the table of contents and title of the blog post below and generate a blog post written in the style of Elon Musk,the CEO and co-founder of SpaceX, Tesla, Neuralink and The Boring Company
  Title: ${req.body.userInput}
  Table of Contents: ${basePromptOutput.text}
  Blog Post:

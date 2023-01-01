@@ -42,11 +42,11 @@ const Home = () => {
 				<div className="header">
 					<div className="header-title">
 						{/* Change your headline here */}
-						<h1>Chat with Steve Jobs</h1>
+						<h1>Chat with Elon Musk</h1>
 					</div>
 					<div className="header-subtitle">
 						<h2>
-						Co-founder, Chairman, and CEO of Apple Inc.
+						CEO and co-founder of SpaceX, Tesla, Neuralink and The Boring Company
 						</h2>
 					</div>
 				</div>
@@ -90,16 +90,14 @@ const Home = () => {
 				</div>
 			</div>
 			<div className="badge-container grow">
-				<a
-					href="https://buildspace.so/builds/ai-writer"
-					target="_blank"
-					rel="noreferrer"
-				>
+				
+					
+			
 					<div className="badge">
 						<Image src={buildspaceLogo} alt="buildspace logo" />
 						<p>build with buildspace</p>
 					</div>
-				</a>
+				
 			</div>
 		</div>
 	);
