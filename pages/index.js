@@ -2,36 +2,45 @@ import Head from "next/head";
 import Image from "next/image";
 import buildspaceLogo from "../assets/buildspace-logo.png";
 import { useState } from "react";
+import Bottleneck from "bottleneck"; // import the library
+
+const limiter = new Bottleneck({
+  minTime: 1000, // minimum time between tasks in ms
+});
 
 const Home = () => {
-	const [userInput, setUserInput] = useState("");
-	const [apiOutput, setApiOutput] = useState("");
-	const [isGenerating, setIsGenerating] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [apiOutput, setApiOutput] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
-	const callGenerateEndpoint = async () => {
-		setIsGenerating(true);
+  const callGenerateEndpoint = async () => {
+    setIsGenerating(true);
 
-		console.log("Calling OpenAI...");
-		const response = await fetch("/api/generate", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ userInput }),
-		});
+    console.log("Calling OpenAI...");
+    
+    // Wrap your API call in the limiter.schedule() function
+    limiter.schedule(async () => {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userInput }),
+      });
 
-		const data = await response.json();
-		const { output } = data;
-		console.log("OpenAI replied...", output.text);
+      const data = await response.json();
+      const { output } = data;
+      console.log("OpenAI replied...", output.text);
 
-		setApiOutput(`${output.text}`);
-		setIsGenerating(false);
-	};
+      setApiOutput(`${output.text}`);
+      setIsGenerating(false);
+    });
+  };
 
-	const onUserChangedText = (event) => {
-		console.log(event.target.value);
-		setUserInput(event.target.value);
-	};
+  const onUserChangedText = (event) => {
+    console.log(event.target.value);
+    setUserInput(event.target.value);
+  };
 
 	return (
 		<div className="root">
